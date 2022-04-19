@@ -81,9 +81,10 @@ In your application's `App.config` or `Web.config` file, specify the console sin
     <add key="serilog:write-to:CrestronConsole" />
 ```
 
+
 ### JSON `appsettings.json` configuration
 
-To use the console sink with _Microsoft.Extensions.Configuration_, for example with ASP.NET Core or .NET Core, use the [Serilog.Settings.Configuration](https://github.com/serilog/serilog-settings-configuration) package. First install that package if you have not already done so:
+To use the console sink with _Microsoft.Extensions.Configuration_, use the [Serilog.Settings.Configuration](https://github.com/serilog/serilog-settings-configuration) package. First install that package if you have not already done so:
 
 ```shell
 dotnet add package Serilog.Settings.Configuration
@@ -119,12 +120,13 @@ Console logging is synchronous and this can cause bottlenecks in some deployment
 // dotnet add package serilog.sinks.async
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Async(wt => wt.Console())
+    .WriteTo.Async(wt => wt.CrestronConsoleSink())
     .CreateLogger();
 ```
 
 ### Contributing
 
 Coming soon.
+
 
 _Copyright &copy; All Contributers - Provided under the [Apache License, Version 2.0](http://apache.org/licenses/LICENSE-2.0.html)._
