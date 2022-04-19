@@ -4,6 +4,8 @@ using Crestron.SimplSharpPro;                       	// For Basic SIMPL#Pro clas
 using Crestron.SimplSharpPro.CrestronThread;        	// For Threading
 using Crestron.SimplSharpPro.Diagnostics;		    	// For System Monitor Access
 using Crestron.SimplSharpPro.DeviceSupport;         	// For Generic Device Support
+using Serilog;
+using Serilog.Sinks.CrestronConsole;
 
 namespace CrestronConsoleDemo
 {
@@ -57,7 +59,7 @@ namespace CrestronConsoleDemo
         {
             try
             {
-
+                Thread newThread = new Thread(SetupExampleLogger, null);
             }
             catch (Exception e)
             {
@@ -144,6 +146,17 @@ namespace CrestronConsoleDemo
                     break;
             }
 
+        }
+
+        private object SetupExampleLogger(object args)
+        {
+           var log = new LoggerConfiguration()
+                        .WriteTo.CrestronConsoleSink()
+                        .CreateLogger();
+
+            log.Information("Hello World");
+
+            return new object();
         }
     }
 }

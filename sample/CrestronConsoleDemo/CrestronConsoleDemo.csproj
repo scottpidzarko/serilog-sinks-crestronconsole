@@ -84,6 +84,9 @@
     <Reference Include="Crestron.SimplSharpPro.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1099c178b3b54c3b, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Crestron.SimplSharp.SDK.ProgramLibrary.2.18.65\lib\net47\Crestron.SimplSharpPro.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.2.10.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
     <Reference Include="SimplSharpAutoUpdateInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1099c178b3b54c3b, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Crestron.SimplSharp.SDK.Library.2.18.65\lib\net47\SimplSharpAutoUpdateInterface.dll</HintPath>
     </Reference>
@@ -138,6 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Serilog.Sinks.CrestronConsole\Serilog.Sinks.CrestronConsole.csproj">
+      <Project>{cbc44088-953d-4b49-a182-3c00f83a9356}</Project>
+      <Name>Serilog.Sinks.CrestronConsole</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Crestron.SimplSharp.SDK.Library.2.18.65\build\Crestron.SimplSharp.SDK.Library.targets" Condition="Exists('..\..\packages\Crestron.SimplSharp.SDK.Library.2.18.65\build\Crestron.SimplSharp.SDK.Library.targets')" />
