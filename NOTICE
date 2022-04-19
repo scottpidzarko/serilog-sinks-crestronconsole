@@ -1,0 +1,1 @@
+This repository was built upon the efforts made by the folks behind the [Serilog.Sinks.Console](https://github.com/serilog/serilog-sinks-console) repository. It is our intention to match the behaviour of that package as much as possible on a Crestron appliance and that repository was used as a jumping off point for this one.
