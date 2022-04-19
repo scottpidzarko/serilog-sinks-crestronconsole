@@ -6,20 +6,23 @@ This repository was built upon the efforts made by the folks behind the [Serilog
 
 ### Getting started
 
-To use the Crestron console sink, first install the [NuGet package](https://nuget.org/packages/serilog.sinks.crestronconsole):
+To use the Crestron console sink, first install the <s>[NuGet package](https://nuget.org/packages/serilog.sinks.crestronconsole):
 
 ```shell
 dotnet add package Serilog.Sinks.CrestronConsole
 ```
+</s>
+
+TODO - make a Nuget package.
 
 Then enable the sink using `WriteTo.CrestronConsole()`:
 
 ```csharp
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.CrestronConsole()
+    .WriteTo.CrestronConsoleSink()
     .CreateLogger();
-    
-Log.Information("Hello, world!");
+
+Log.Information("Hello world");
 ```
 
 When connected via ssh or using toolbox text console tool, you'll see the output:
@@ -33,7 +36,7 @@ When connected via ssh or using toolbox text console tool, you'll see the output
 The format of events to the console can be modified using the `outputTemplate` configuration parameter:
 
 ```csharp
-    .WriteTo.CrestronConsole(
+    .WriteTo.CrestronConsoleSink(
         outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
 ```
 
@@ -47,13 +50,11 @@ The sink can write JSON  output instead of plain text. `CompactJsonFormatter` or
 dotnet add package Serilog.Formatting.Compact
 ```
 
-Pass a formatter to the `CrestronConsole()` configuration method:
+Pass a formatter to the `CrestronConsoleSink()` configuration method:
 
 ```csharp
-    .WriteTo.CrestronConsole(new RenderedCompactJsonFormatter())
+    .WriteTo.CrestronConsoleSink(new RenderedCompactJsonFormatter())
 ```
-
-Output theming is not available when custom formatters are used.
 
 ### XML `<appSettings>` configuration
 
@@ -126,5 +127,4 @@ Log.Logger = new LoggerConfiguration()
 
 Coming soon.
 
-
-_Copyright &copy; Serilog.Sinks.CrestronConsole Contributors - Provided under the [Apache License, Version 2.0](http://apache.org/licenses/LICENSE-2.0.html)._
+_Copyright &copy; All Contributers - Provided under the [Apache License, Version 2.0](http://apache.org/licenses/LICENSE-2.0.html)._
