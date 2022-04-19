@@ -3,9 +3,44 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5B817A42-7200-45CC-8D94-6214E1BCB961}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0AC7FA22-D235-4CC9-984A-3934905557CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{DBCB6E66-7488-44D0-B204-6011FC7869CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.CrestronConsole", "src\Serilog.Sinks.CrestronConsole\Serilog.Sinks.CrestronConsole.csproj", "{CBC44088-953D-4B49-A182-3C00F83A9356}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.CrestronConsole.Tests", "test\Serilog.Sinks.CrestronConsole.Tests\Serilog.Sinks.CrestronConsole.Tests.csproj", "{2E9345FF-6E12-40E2-991D-844B07A9E63B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrestronConsoleDemo", "sample\CrestronConsoleDemo\CrestronConsoleDemo.csproj", "{3C67A769-B4DB-4954-B8DF-A97F2D953DCC}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBC44088-953D-4B49-A182-3C00F83A9356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC44088-953D-4B49-A182-3C00F83A9356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC44088-953D-4B49-A182-3C00F83A9356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC44088-953D-4B49-A182-3C00F83A9356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9345FF-6E12-40E2-991D-844B07A9E63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9345FF-6E12-40E2-991D-844B07A9E63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9345FF-6E12-40E2-991D-844B07A9E63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9345FF-6E12-40E2-991D-844B07A9E63B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C67A769-B4DB-4954-B8DF-A97F2D953DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C67A769-B4DB-4954-B8DF-A97F2D953DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C67A769-B4DB-4954-B8DF-A97F2D953DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C67A769-B4DB-4954-B8DF-A97F2D953DCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBC44088-953D-4B49-A182-3C00F83A9356} = {0AC7FA22-D235-4CC9-984A-3934905557CA}
+		{2E9345FF-6E12-40E2-991D-844B07A9E63B} = {5B817A42-7200-45CC-8D94-6214E1BCB961}
+		{3C67A769-B4DB-4954-B8DF-A97F2D953DCC} = {DBCB6E66-7488-44D0-B204-6011FC7869CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {597C36F1-1675-492D-9AB6-CA6FF136D241}
