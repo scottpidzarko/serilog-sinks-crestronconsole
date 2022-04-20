@@ -2,6 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CBC44088-953D-4B49-A182-3C00F83A9356}</ProjectGuid>
@@ -84,6 +86,18 @@
   <ItemGroup>
     <Compile Include="CrestronConsoleSink.cs" />
     <Compile Include="CrestronConsoleSinkExtensions.cs" />
+    <Compile Include="Nullable\AllowNullAttribute.cs" />
+    <Compile Include="Nullable\DisallowNullAttribute.cs" />
+    <Compile Include="Nullable\DoesNotReturnAttribute.cs" />
+    <Compile Include="Nullable\DoesNotReturnIfAttribute.cs" />
+    <Compile Include="Nullable\MaybeNullAttribute.cs" />
+    <Compile Include="Nullable\MaybeNullWhenAttribute.cs" />
+    <Compile Include="Nullable\MemberNotNullAttribute.cs" />
+    <Compile Include="Nullable\MemberNotNullWhenAttribute.cs" />
+    <Compile Include="Nullable\NotNullAttribute.cs" />
+    <Compile Include="Nullable\NotNullIfNotNullAttribute.cs" />
+    <Compile Include="Nullable\NotNullWhenAttribute.cs" />
+    <Compile Include="OutputTemplateRender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

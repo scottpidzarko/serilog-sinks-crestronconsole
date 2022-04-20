@@ -151,7 +151,7 @@ namespace CrestronConsoleDemo
         private object SetupExampleLogger(object args)
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.CrestronConsoleSink()
+                .WriteTo.CrestronConsole()
                 .CreateLogger();
 
             Log.Information("Hello world");
