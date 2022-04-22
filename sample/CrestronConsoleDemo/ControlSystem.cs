@@ -5,7 +5,7 @@ using Crestron.SimplSharpPro.CrestronThread;        	// For Threading
 using Crestron.SimplSharpPro.Diagnostics;		    	// For System Monitor Access
 using Crestron.SimplSharpPro.DeviceSupport;         	// For Generic Device Support
 using Serilog;
-using Serilog.Sinks.CrestronConsole;
+using Serilog.Sinks.CrestronSystemConsole.Themes;
 
 namespace CrestronConsoleDemo
 {
@@ -151,10 +151,26 @@ namespace CrestronConsoleDemo
         private object SetupExampleLogger(object args)
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.CrestronConsoleSink()
+                .MinimumLevel.Verbose()
+                .WriteTo.CrestronConsole(theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
 
-            Log.Information("Hello world");
+            try
+            {
+                Log.Debug("Getting started");
+
+                Log.Information("Hello from thread {ThreadId}", Thread.CurrentThread.ManagedThreadId);
+
+                Log.Warning("No coins remain at position {@Position}", new { Lat = 25, Long = 134 });
+
+                throw new DivideByZeroException();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Something went wrong");
+            }
+
+            Log.CloseAndFlush();
 
             return new object();
         }
