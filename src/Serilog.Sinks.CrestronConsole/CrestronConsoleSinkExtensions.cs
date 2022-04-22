@@ -1,19 +1,20 @@
-﻿using Crestron.SimplSharp;
-using Serilog;
-using Serilog.Configuration;
+﻿using Serilog.Configuration;
 using Serilog.Core;
 using Serilog.Events;
 using Serilog.Formatting;
+using Serilog.Sinks.CrestronSystemConsole;
+using Serilog.Sinks.CrestronSystemConsole.Output;
+using Serilog.Sinks.CrestronSystemConsole.Themes;
 using System;
 
 #nullable enable // Important!
 
-namespace Serilog.Sinks.CrestronConsole
+namespace Serilog
 {
     /// <summary>
     /// Adds the WriteTo.CrestronConsole() extension method to <see cref="LoggerConfiguration"/>.
     /// </summary>
-    public static class CrestronConsoleSinkExtensions
+    public static class CrestronConsoleLoggerConfigurationExtensions
     {
         static readonly object DefaultSyncRoot = new object();
         const string DefaultConsoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}";
@@ -32,7 +33,10 @@ namespace Serilog.Sinks.CrestronConsole
         /// <param name="formatProvider">Supplies culture-specific formatting information, or null.</param>
         /// <param name="levelSwitch">A switch allowing the pass-through minimum level
         /// to be changed at runtime.</param>
-        /// <param name="crestronErrorLogFromLevel">Specifies the level at which events will be written to <see cref="Crestron.SimplSharp.ErrorLog"/>.</param>
+        /// <param name="theme">The theme to apply to the styled output. If not specified,
+        /// uses <see cref="SystemConsoleTheme.Literate"/>.</param>
+        /// <param name="applyThemeToRedirectedOutput">Applies the selected or default theme even when output redirection is detected.</param>
+        /// <returns>Configuration object allowing method chaining.</returns>
         /// <exception cref="ArgumentNullException">When <paramref name="sinkConfiguration"/> is <code>null</code></exception>
         /// <exception cref="ArgumentNullException">When <paramref name="outputTemplate"/> is <code>null</code></exception>
         public static LoggerConfiguration CrestronConsole(
@@ -42,16 +46,21 @@ namespace Serilog.Sinks.CrestronConsole
             IFormatProvider? formatProvider = null,
             LoggingLevelSwitch? levelSwitch = null,
             LogEventLevel? crestronErrorLogFromLevel = null,
+            ConsoleTheme? theme = null,
+            bool applyThemeToRedirectedOutput = false,
             object? syncRoot = null)
         {
             if (sinkConfiguration is null) throw new ArgumentNullException(nameof(sinkConfiguration));
             if (outputTemplate is null) throw new ArgumentNullException(nameof(outputTemplate));
 
+            var appliedTheme = !applyThemeToRedirectedOutput && (System.Console.IsOutputRedirected || System.Console.IsErrorRedirected) ?
+                ConsoleTheme.None :
+                theme ?? SystemConsoleThemes.Literate;
+
             syncRoot ??= DefaultSyncRoot;
 
-            var formatter = new OutputTemplateRender(outputTemplate, formatProvider);
-
-            return sinkConfiguration.Sink(new CrestronConsoleSink(formatter, crestronErrorLogFromLevel, syncRoot), restrictedToMinimumLevel, levelSwitch);
+            var formatter = new OutputTemplateRenderer(appliedTheme, outputTemplate, formatProvider);
+            return sinkConfiguration.Sink(new CrestronConsoleSink(appliedTheme, formatter, syncRoot), restrictedToMinimumLevel, levelSwitch);
         }
 
         /// <summary>
@@ -67,7 +76,7 @@ namespace Serilog.Sinks.CrestronConsole
         /// events passed through the sink. Ignored when <paramref name="levelSwitch"/> is specified.</param>
         /// <param name="levelSwitch">A switch allowing the pass-through minimum level
         /// to be changed at runtime.</param>
-        /// <param name="crestronErrorLogFromLevel">Specifies the level at which events will be written to <see cref="Crestron.SimplSharp.ErrorLog"/>.</param>
+        /// <returns>Configuration object allowing method chaining.</returns>
         /// <exception cref="ArgumentNullException">When <paramref name="sinkConfiguration"/> is <code>null</code></exception>
         /// <exception cref="ArgumentNullException">When <paramref name="outputTemplate"/> is <code>null</code></exception>
         public static LoggerConfiguration CrestronConsole(
@@ -76,7 +85,6 @@ namespace Serilog.Sinks.CrestronConsole
             LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
             string outputTemplate = DefaultConsoleOutputTemplate,
             LoggingLevelSwitch? levelSwitch = null,
-            LogEventLevel? crestronErrorLogFromLevel = null,
             object? syncRoot = null)
         {
             if (sinkConfiguration is null) throw new ArgumentNullException(nameof(sinkConfiguration));
@@ -84,7 +92,7 @@ namespace Serilog.Sinks.CrestronConsole
             
             syncRoot ??= DefaultSyncRoot;
 
-            return sinkConfiguration.Sink(new CrestronConsoleSink(formatter, crestronErrorLogFromLevel, syncRoot), restrictedToMinimumLevel, levelSwitch);
+            return sinkConfiguration.Sink(new CrestronConsoleSink(ConsoleTheme.None, formatter, syncRoot), restrictedToMinimumLevel, levelSwitch);
         }
     }
 }

@@ -9,7 +9,7 @@
     <ProjectGuid>{CBC44088-953D-4B49-A182-3C00F83A9356}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Serilog.Sinks.CrestronConsole</RootNamespace>
+    <RootNamespace>Serilog</RootNamespace>
     <AssemblyName>Serilog.Sinks.CrestronConsole</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -84,7 +84,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CrestronConsoleSink.cs" />
+    <Compile Include="CrestronConsoleTextWriter.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\CrestronConsoleSink.cs" />
     <Compile Include="CrestronConsoleSinkExtensions.cs" />
     <Compile Include="Nullable\AllowNullAttribute.cs" />
     <Compile Include="Nullable\DisallowNullAttribute.cs" />
@@ -97,8 +98,37 @@
     <Compile Include="Nullable\NotNullAttribute.cs" />
     <Compile Include="Nullable\NotNullIfNotNullAttribute.cs" />
     <Compile Include="Nullable\NotNullWhenAttribute.cs" />
-    <Compile Include="OutputTemplateRender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Formatting\ThemedDisplayValueFormatter.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Formatting\ThemedJsonValueFormatter.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Formatting\ThemedValueFormatter.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Formatting\ThemedValueFormatterState.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\EventPropertyTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\ExceptionTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\LevelOutputFormat.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\LevelTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\MessageTemplateOutputTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\NewLineTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\OutputTemplateRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\OutputTemplateTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\PropertiesTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\TextTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Output\TimestampTokenRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Platform\WindowsConsole.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Rendering\AlignmentExtensions.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Rendering\Casing.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Rendering\Padding.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Rendering\ThemedMessageTemplateRenderer.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\AnsiConsoleTheme.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\AnsiConsoleThemes.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\AnsiEscapeSequence.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\ConsoleTheme.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\ConsoleThemeStyle.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\EmptyConsoleTheme.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\StyleReset.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\SystemConsoleTheme.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\SystemConsoleThemes.cs" />
+    <Compile Include="Sinks\CrestronSystemConsole\Themes\SystemConsoleThemeStyle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

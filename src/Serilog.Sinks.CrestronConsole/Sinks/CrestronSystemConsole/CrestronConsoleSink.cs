@@ -1,33 +1,44 @@
 ﻿using Crestron.SimplSharp;
-using Serilog;
-using Serilog.Configuration;
+
 using Serilog.Core;
 using Serilog.Events;
 using Serilog.Formatting;
+using Serilog.Sinks.CrestronSystemConsole.Platform;
+using Serilog.Sinks.CrestronSystemConsole.Themes;
 using System;
+using System.IO;
+using System.Text;
 
-namespace Serilog.Sinks.CrestronConsole
+namespace Serilog.Sinks.CrestronSystemConsole
 {
     public class CrestronConsoleSink : ILogEventSink
     {
-        readonly LogEventLevel? _crestronErrorLogFromLevel;
+        readonly ConsoleTheme _theme;
         readonly ITextFormatter _formatter;
         readonly object _syncRoot;
 
         const int DefaultWriteBufferCapacity = 256;
 
-        public CrestronConsoleSink(ITextFormatter formatter,
-            LogEventLevel? crestronErrorLogFromLevel,
+        static CrestronConsoleSink()
+        {
+            // Disable this for now, we can add it back in if we want this console sink to continue to work
+            // When running outside a Crestron appliance
+            // WindowsConsole.EnableVirtualTerminalProcessing();
+        }
+
+        public CrestronConsoleSink(
+            ConsoleTheme theme, 
+            ITextFormatter formatter,
             object syncRoot)
         {
-            _crestronErrorLogFromLevel = crestronErrorLogFromLevel;
+            _theme = theme ?? throw new ArgumentNullException(nameof(theme));
             _formatter = formatter;
             _syncRoot = syncRoot ?? throw new ArgumentNullException(nameof(syncRoot));
         }
 
         public void Emit(LogEvent logEvent)
         {
-            /*var output = SelectOutputStream(logEvent.Level);
+            var output = new CrestronConsoletWriter();
 
             // ANSI escape codes can be pre-rendered into a buffer; however, if we're on Windows and
             // using its console coloring APIs, the color switches would happen during the off-screen
@@ -50,7 +61,7 @@ namespace Serilog.Sinks.CrestronConsole
                     _formatter.Format(logEvent, output);
                     output.Flush();
                 }
-            } */
+            }
         }
     }
 }
