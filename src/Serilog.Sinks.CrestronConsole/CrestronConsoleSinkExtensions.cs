@@ -34,8 +34,7 @@ namespace Serilog
         /// <param name="levelSwitch">A switch allowing the pass-through minimum level
         /// to be changed at runtime.</param>
         /// <param name="theme">The theme to apply to the styled output. If not specified,
-        /// uses <see cref="SystemConsoleTheme.Literate"/>.</param>
-        /// <param name="applyThemeToRedirectedOutput">Applies the selected or default theme even when output redirection is detected.</param>
+        /// uses <see cref="ConsoleTheme.None"/>.</param>
         /// <returns>Configuration object allowing method chaining.</returns>
         /// <exception cref="ArgumentNullException">When <paramref name="sinkConfiguration"/> is <code>null</code></exception>
         /// <exception cref="ArgumentNullException">When <paramref name="outputTemplate"/> is <code>null</code></exception>
@@ -45,17 +44,18 @@ namespace Serilog
             string outputTemplate = DefaultConsoleOutputTemplate,
             IFormatProvider? formatProvider = null,
             LoggingLevelSwitch? levelSwitch = null,
-            LogEventLevel? crestronErrorLogFromLevel = null,
             ConsoleTheme? theme = null,
-            bool applyThemeToRedirectedOutput = false,
             object? syncRoot = null)
         {
             if (sinkConfiguration is null) throw new ArgumentNullException(nameof(sinkConfiguration));
             if (outputTemplate is null) throw new ArgumentNullException(nameof(outputTemplate));
 
-            var appliedTheme = !applyThemeToRedirectedOutput && (System.Console.IsOutputRedirected || System.Console.IsErrorRedirected) ?
-                ConsoleTheme.None :
-                theme ?? SystemConsoleThemes.Literate;
+            // This is colourized by default in the vanilla Console Sink provided by Serilog
+            // using SystemConsoleThemes.Literate;
+            // however since users may be connecting with Crestron toolbox which doesn't support most ANSI color 
+            // Codes we disable colour by default.
+            // Advanced users will be using an SSH client which does and so they'll specify colorized output then
+            var appliedTheme = theme ?? ConsoleTheme.None; 
 
             syncRoot ??= DefaultSyncRoot;
 
