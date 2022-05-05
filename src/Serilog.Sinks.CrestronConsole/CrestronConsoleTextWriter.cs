@@ -9,14 +9,14 @@ using Crestron.SimplSharp;
 
 namespace Serilog.Sinks.CrestronSystemConsole
 {
-    public class CrestronConsoletWriter : TextWriter
+    public class CrestronConsoleTextWriter : TextWriter
     {
         
-        public CrestronConsoletWriter()
+        public CrestronConsoleTextWriter()
         {
         }
 
-        public CrestronConsoletWriter(IFormatProvider formatProvider) : base(formatProvider)
+        public CrestronConsoleTextWriter(IFormatProvider formatProvider) : base(formatProvider)
         {
         }
 

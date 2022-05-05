@@ -38,7 +38,7 @@ namespace Serilog.Sinks.CrestronSystemConsole
 
         public void Emit(LogEvent logEvent)
         {
-            var output = new CrestronConsoletWriter();
+            var output = new CrestronConsoleTextWriter();
 
             // ANSI escape codes can be pre-rendered into a buffer; however, if we're on Windows and
             // using its console coloring APIs, the color switches would happen during the off-screen
