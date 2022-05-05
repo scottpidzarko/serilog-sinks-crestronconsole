@@ -17,13 +17,16 @@ namespace Serilog.Sinks.CrestronSystemConsole
         readonly ITextFormatter _formatter;
         readonly object _syncRoot;
 
+        private CrestronConsoleTextWriter output;
+        private StringWriter buffer;
+
         const int DefaultWriteBufferCapacity = 256;
 
         static CrestronConsoleSink()
         {
             // Disable this for now, we can add it back in if we want this console sink to continue to work
             // When running outside a Crestron appliance
-            // WindowsConsole.EnableVirtualTerminalProcessing();
+            // WindowsConsole.EnableVirtualTerminalProcessing();  
         }
 
         public CrestronConsoleSink(
@@ -34,18 +37,21 @@ namespace Serilog.Sinks.CrestronSystemConsole
             _theme = theme ?? throw new ArgumentNullException(nameof(theme));
             _formatter = formatter;
             _syncRoot = syncRoot ?? throw new ArgumentNullException(nameof(syncRoot));
+
+            output = new CrestronConsoleTextWriter();
+            buffer = new StringWriter(new StringBuilder(DefaultWriteBufferCapacity));
         }
 
         public void Emit(LogEvent logEvent)
         {
-            var output = new CrestronConsoleTextWriter();
+            
 
             // ANSI escape codes can be pre-rendered into a buffer; however, if we're on Windows and
             // using its console coloring APIs, the color switches would happen during the off-screen
             // buffered write here and have no effect when the line is actually written out.
             if (_theme.CanBuffer)
             {
-                var buffer = new StringWriter(new StringBuilder(DefaultWriteBufferCapacity));
+                buffer = new StringWriter(new StringBuilder(DefaultWriteBufferCapacity));
                 _formatter.Format(logEvent, buffer);
                 var formattedLogEventText = buffer.ToString();
                 lock (_syncRoot)
