@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$-alpha</version>
+    <title>$title$</title>
+    <authors>Scott Pidzarko</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/scottpidzarko/serilog-sinks-crestronconsole</projectUrl>
+    <description>$description$</description>
+    <releaseNotes>Pre-Release Version.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>Serilog Sink Crestron</tags>
+  </metadata>
+</package>

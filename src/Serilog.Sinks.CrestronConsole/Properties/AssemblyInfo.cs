@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Serilog.Sinks.CrestronConsole")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Write log events to the Text Console of a Crestron 4-series appliance as text or JSON.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Serilog.Sinks.CrestronConsole")]
