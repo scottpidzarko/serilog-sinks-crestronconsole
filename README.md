@@ -15,7 +15,7 @@ dotnet add package Serilog.Sinks.CrestronConsole
 ```
 </s>
 
-TODO - make a Nuget package.
+Nuget package support is ready, however there is already a closed source one on the nuget marketplace written by Dario Dusper. Attempts to get his project open source or otherwise hand the package name over to me have been unsuccessful so far.
 
 Then enable the sink using `WriteTo.CrestronConsole()`:
 
