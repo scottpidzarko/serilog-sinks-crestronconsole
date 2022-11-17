@@ -44,19 +44,17 @@ namespace Serilog.Sinks.CrestronSystemConsole
 
         public void Emit(LogEvent logEvent)
         {
-            
-
             // ANSI escape codes can be pre-rendered into a buffer; however, if we're on Windows and
             // using its console coloring APIs, the color switches would happen during the off-screen
             // buffered write here and have no effect when the line is actually written out.
             if (_theme.CanBuffer)
             {
-                buffer = new StringWriter(new StringBuilder(DefaultWriteBufferCapacity));
-                _formatter.Format(logEvent, buffer);
-                var formattedLogEventText = buffer.ToString();
                 lock (_syncRoot)
-                {
-                    output.Write(formattedLogEventText);
+                { 
+                    buffer.GetStringBuilder().Clear();
+                    _formatter.Format(logEvent, buffer);
+                    var formattedLogEventText = buffer.ToString();
+                    output.WriteLine(formattedLogEventText);
                     output.Flush();
                 }
             }
